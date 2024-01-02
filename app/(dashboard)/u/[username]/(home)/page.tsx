@@ -1,7 +1,29 @@
-const CreatorPage = () => {
+import { currentUser } from "@clerk/nextjs"
+
+import { StreamPlayer } from "@/components/stream-player"
+import { getUserByUsername } from "@/lib/user-service"
+
+interface CreatePageProps {
+    params: {
+        username: string
+    }
+}
+
+const CreatorPage = async ({ params }: CreatePageProps) => {
+    const externalUser = await currentUser()
+    const user = await getUserByUsername(params.username)
+
+    if (!user || user.externalUserId !== externalUser?.id || !user.stream) {
+        throw new Error("Unauthorized")
+    }
+
     return (
-        <div>
-            Creator Page
+        <div className="h-full">
+            <StreamPlayer
+                user={user}
+                stream={user.stream}
+                isFollowing
+            />
         </div>
     )
 }
