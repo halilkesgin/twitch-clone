@@ -2,6 +2,8 @@
 
 import { VerifiedMark } from "@/components/verified-mark"
 
+import { BioModal } from "./bio-modal"
+
 interface AboutCardProps {
     hostName: string
     hostIdentity: string
@@ -31,9 +33,9 @@ export const AboutCard = ({
                         <VerifiedMark />
                     </div>
                     {isHost && (
-                        <p>
-                            Edit
-                        </p>
+                        <BioModal 
+                            initialValue={bio}
+                        />
                     )}
                 </div>
                 <div className="text-sm text-muted-foreground">
