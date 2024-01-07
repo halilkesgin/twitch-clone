@@ -1,7 +1,13 @@
+import { Suspense } from "react"
+
+import { Results, ResultsSkeleton } from "./_components/results"
+
 const HomePage = () => {
     return (
-        <div>
-            Home
+        <div className="h-full p-8 max-w-screen-2xl mx-auto">
+            <Suspense fallback={<ResultsSkeleton />}>
+                <Results />
+            </Suspense>
         </div>
     )
 }
